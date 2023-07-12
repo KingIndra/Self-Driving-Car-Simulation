@@ -1,12 +1,12 @@
 class Car{
-    constructor(x,y,width,height,controlType,maxSpeed=3){
+    constructor(x,y,width,height,controlType,maxSpeed=3, acc=0.2){
         this.x=x;
         this.y=y;
         this.width=width;
         this.height=height;
 
         this.speed=0;
-        this.acceleration=0.2;
+        this.acceleration=acc;
         this.maxSpeed=maxSpeed;
         this.friction=0.05;
         this.angle=0;
@@ -17,7 +17,7 @@ class Car{
         if(controlType!="DUMMY"){
             this.sensor=new Sensor(this);
             this.brain=new NeuralNetwork(
-                [this.sensor.rayCount,6,4]
+                [this.sensor.rayCount,6,2]
             );
         }
         this.controls=new Controls(controlType);
@@ -37,10 +37,12 @@ class Car{
             const outputs=NeuralNetwork.feedForward(offsets,this.brain);
 
             if(this.useBrain){
-                this.controls.forward=outputs[0];
+                // this.controls.forward=outputs[0];
+                // this.controls.right=outputs[2];
+                // this.controls.left=outputs[1];
+                // this.controls.reverse=outputs[3];
+                this.controls.right=outputs[0];
                 this.controls.left=outputs[1];
-                this.controls.right=outputs[2];
-                this.controls.reverse=outputs[3];
             }
         }
     }

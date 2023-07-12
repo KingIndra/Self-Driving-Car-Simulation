@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <head>
-    <title>Self-driving car - No libraries</title>
+    <title>Self Driving Car Simulation</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/cda2a0f3cd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <canvas id="carCanvas"></canvas>
-    <div id="verticalButtons">
-        <button onclick="save()">💾</button>
-        <button onclick="discard()">🗑️</button>
+    <canvas id="carCanvas" style="position: absolute; z-index: -1;"></canvas>
+    <div id="dis">
+        <div id="verticalButtons">
+            <button onclick="save()"><i class="fa-solid fa-floppy-disk"></i></button>
+            <button onclick="discard()"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <span id="bottom-info">
+            Speed: <span id="speed">0</span>
+            <br>
+            Score: <span id="score">0</span>
+            <br>
+            <span id="extras">
+                Car: <span id="score">1</span>
+                <br>
+                Generation: <span id="score">1</span>
+            </span>
+        </span>
     </div>
-    <canvas id="networkCanvas"></canvas>
+    <!-- <canvas id="networkCanvas"></canvas> -->
+    <script src="streetlight.js"></script>
     <script src="visualizer.js"></script>
     <script src="network.js"></script>
     <script src="sensor.js"></script>

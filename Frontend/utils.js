@@ -47,3 +47,16 @@ function getRGBA(value){
     return "rgba("+R+","+G+","+B+","+alpha+")";
 }
                 
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// RANDOM GENERATOR
+let MINI = 0, MAXI = 0, mini = MINI, maxi = MAXI;
+const randomCoordinates = (a,b,c,d) => ({
+    x: getRandomIntInclusive(a,b),
+    y: getRandomIntInclusive(c,d)
+});
+let rco = null;
