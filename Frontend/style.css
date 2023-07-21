@@ -1,6 +1,6 @@
 body{
     margin:0;
-    background:rgb(0, 9, 4);
+    background:rgb(0, 0, 0);
     color: white;
     overflow:hidden;
     display:flex;
@@ -17,6 +17,9 @@ body{
     text-align: center;
     color: white;
     /* z-index: -2; */
+}
+#verticalButtons button {
+    font-size: 1.1rem;
 }
 #dis {
     display: flex; 

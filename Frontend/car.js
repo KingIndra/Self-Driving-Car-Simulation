@@ -11,8 +11,9 @@ class Car{
         this.friction=0.05;
         this.angle=0;
         this.damaged=false;
+        this.controlType = controlType
 
-        this.useBrain=controlType=="AI";
+        this.useBrain = this.controlType=="AI"
 
         if(controlType!="DUMMY"){
             this.sensor=new Sensor(this);
@@ -23,7 +24,8 @@ class Car{
         this.controls=new Controls(controlType);
     }
 
-    update(roadBorders,traffic){
+    update(roadBorders, traffic, mode=null){
+        if(this.mode!=null) this.mode = mode
         if(!this.damaged){
             this.#move();
             this.polygon=this.#createPolygon();
@@ -36,7 +38,7 @@ class Car{
             );
             const outputs=NeuralNetwork.feedForward(offsets,this.brain);
 
-            if(this.useBrain){
+            if(this.controlType==="AI"){
                 // this.controls.forward=outputs[0];
                 // this.controls.right=outputs[2];
                 // this.controls.left=outputs[1];
@@ -85,6 +87,9 @@ class Car{
     }
 
     #move(){
+        this.controlType = this.controls.type
+        if(this.controls.maxSpeed) this.maxSpeed = this.controls.maxSpeed
+
         if(this.controls.forward){
             this.speed+=this.acceleration;
         }

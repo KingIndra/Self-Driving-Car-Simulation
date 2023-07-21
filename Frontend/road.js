@@ -38,7 +38,7 @@ class Road{
                 i/this.laneCount
             );
             
-            ctx.setLineDash([40,100]);
+            ctx.setLineDash([40,120]);
             ctx.beginPath();
             ctx.moveTo(x,this.top);
             ctx.lineTo(x,this.bottom);

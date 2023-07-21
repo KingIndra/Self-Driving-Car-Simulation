@@ -2,8 +2,8 @@ class StreetLight {
     constructor(x, y)  {
         this.x = x
         this.y = y
-        this.rayCount=300;
-        this.rayLength=200;
+        this.rayCount=400;
+        this.rayLength=500;
         this.raySpread=Math.PI;
         this.rays=[];
         this.readings=[];
@@ -75,7 +75,7 @@ class StreetLight {
             grad.addColorStop(0, "yellow");
             grad.addColorStop(1, "rgba(255, 255, 0, 0.05)");
             ctx.strokeStyle = grad;
-            ctx.globalAlpha = 0.2;
+            ctx.globalAlpha = 0.15;
             ctx.beginPath();
             ctx.lineWidth=2;
             // ctx.strokeStyle="yellow";
