@@ -6,31 +6,41 @@
 </head>
 <body>
     <canvas id="carCanvas" style="position: absolute; z-index: -1;"></canvas>
+    <div class="sidebarLeft">
+        <span></span>
+        <button id="machineLearning2"><i class="fa-solid fa-brain"></i></button>
+        <!-- <button id="moveLeft" class="sideControlButtons"><i class="fa-solid fa-arrow-left"></i></i></button> -->
+    </div>
+    &ensp;
     <div id="dis">
         <div id="verticalButtons">
-            <button id="changeMode" mode="" onclick="changeMode()"><i class="fa-solid fa-robot"></i></button>
-            &ensp;
-            &ensp;
-            <button id="changeSpeed" speed=3 style="width: 30px;"><i class="fa-solid fa-3"></i></button>
-            &ensp;
-            &ensp;
-            <button id="changeMode" mode="" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button>
-            <!-- <button onclick="save()"><i class="fa-solid fa-floppy-disk"></i></button>
-            <button onclick="discard()"><i class="fa-solid fa-trash"></i></button> -->
         </div>
         <span id="bottom-info">
-            Speed: <span id="speed">0</span>
-            <br>
-            Score: <span id="score">0</span>
-            <br>
-            High Score: <span id="highScore">0</span>
-            <br>
-            <span id="extras">
-                <!-- Car: <span id="score">1</span>
+            <span id="playing">
+                Speed: <span id="speed">0</span>
                 <br>
-                Generation: <span id="score">1</span> -->
+                Score: <span id="score">0</span>
+                <br>
+                High Score: <span id="highScore">0</span>
+            </span>
+            <span id="training">
+                Cars: <span id="carsCount">1</span>
+                <br>
+                Generation: <span id="generation">1</span>
+                <br>
+                Score: <span id="scoreTraining">0</span>
             </span>
         </span>
+    </div>
+    &ensp;&ensp;
+    <div class="sidebarRight">
+        <button class="disableOnTraining" id="changeMode" mode="KEYS" onclick="changeMode()"><i class="fa-solid fa-gamepad"></i></button>
+        <button class="disableOnTraining" id="changeSpeed" speed=3><i class="fa-solid fa-gauge"></i></button>
+        <button class="disableOnTraining" id="changeMode" mode="" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button>
+        <button id="pause" onclick="pauseFunction()"><i animated=0 class="fa-solid fa-pause"></i></button>
+        <button id="machineLearning"><i animated=0 class="fa-solid fa-brain"></i></button>
+        <span></span><span></span><span></span><span></span><span></span>
+        <!-- <button id="moveRight" class="sideControlButtons"><i class="fa-solid fa-arrow-right"></i></i></button> -->
     </div>
     <script src="streetlight.js"></script>
     <script src="visualizer.js"></script>

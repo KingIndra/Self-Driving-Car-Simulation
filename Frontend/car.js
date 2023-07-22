@@ -13,7 +13,7 @@ class Car{
         this.damaged=false;
         this.controlType = controlType
 
-        this.useBrain = this.controlType=="AI"
+        this.useBrain = (this.controlType=="AI" || this.controlType=="BOT")
 
         if(controlType!="DUMMY"){
             this.sensor=new Sensor(this);
@@ -21,7 +21,16 @@ class Car{
                 [this.sensor.rayCount,6,2]
             );
         }
-        this.controls=new Controls(controlType);
+        this.controls=new Controls(controlType)
+    }
+
+    repair() {
+        this.damaged = false
+        this.y = 100
+        this.x = 100
+        this.angle = 0
+        this.controls.left = false
+        this.controls.right = false
     }
 
     update(roadBorders, traffic, mode=null){
@@ -38,11 +47,7 @@ class Car{
             );
             const outputs=NeuralNetwork.feedForward(offsets,this.brain);
 
-            if(this.controlType==="AI"){
-                // this.controls.forward=outputs[0];
-                // this.controls.right=outputs[2];
-                // this.controls.left=outputs[1];
-                // this.controls.reverse=outputs[3];
+            if(this.controlType==="AI" || this.controlType==="BOT"){
                 this.controls.right=outputs[0];
                 this.controls.left=outputs[1];
             }

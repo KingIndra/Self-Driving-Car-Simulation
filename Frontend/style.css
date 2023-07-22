@@ -5,7 +5,35 @@ body{
     overflow:hidden;
     display:flex;
     justify-content:center;
+    align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.sidebarRight button {
+    height: 30px;
+    width: 35px;
+    font-size: 1.2rem;
+}
+#machineLearning2 {
+    visibility: hidden;
+    height: 40px;
+    width: 40px;
+    font-size: 1.5rem;
+}
+.sideControlButtons {
+    width: 40px;
+    height: 55px;
+}
+.sidebarLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100vh;
+}
+.sidebarRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100vh;
 }
 #bottom-info {
     background-color: white;
@@ -25,7 +53,7 @@ body{
     display: flex; 
     flex-direction: column; 
     justify-content: space-between; 
-    width: 178px;
+    width: 182px;
     height: 100vh;
 }
 button{
