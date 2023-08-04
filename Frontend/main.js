@@ -257,6 +257,8 @@ function getScr(){
 let highScr = getScr()
 highScore.innerHTML = highScr
 
+let c_for_second_car = 0
+
 function animate(){
 
     if(!pause) {
@@ -268,6 +270,8 @@ function animate(){
             cars[i].update(road.borders,traffic);
             if(!cars[i].damaged) {
                 number_of_cars++
+            } else {
+                if(cars.length > 1) cars.splice(i, 1)
             }
         }
         traffic.push(bestCar)
@@ -287,7 +291,7 @@ function animate(){
     
         road.draw(carCtx);
         for(let i=0;i<traffic.length;i++){
-            traffic[i].draw(carCtx,"red");
+            traffic[i].draw(carCtx,"#8B008B");
         }
         let last_traffic_y = traffic[lastTraffic].y, first_traffic_y = traffic[firstTraffic].y;
         if(Math.abs(bestCar.y)>Math.abs(first_traffic_y)) {
@@ -295,13 +299,21 @@ function animate(){
             shuffleArray(traverse_arr)
             mini_traffic = last_traffic_y + MINI_TRAFFIC, maxi_traffic = last_traffic_y + MAXI_TRAFFIC
             for(let i=0; i<3; i++) {
+                c_for_second_car++
                 rco_traffic = randomCoordinates(0, 2, mini_traffic, maxi_traffic)
                 traffic.push(new Car(road.getLaneCenter(traverse_arr[i]),rco_traffic.y,30,50,"DUMMY",2))
+                if(c_for_second_car%5 == 0) {
+                    if(traverse_arr[i] == 0 || traverse_arr[i] == 2) {
+                        let oby = rco_traffic.y
+                        oby = getRandomIntInclusive(oby - 5, oby + 5)
+                        traffic.push(new Car(road.getLaneCenter(1), oby, 30, 50, "DUMMY", 2))
+                    }
+                }
                 mini_traffic = rco_traffic.y + MINI_TRAFFIC, maxi_traffic = rco_traffic.y + MAXI_TRAFFIC
                 if(i==0) firstTraffic = traffic.length-1
                 if(i==2) lastTraffic = traffic.length-1
             }
-            if(traffic.length>6) {
+            if(traffic.length > 7) {
                 for(let i=0; i<3; i++) {
                     traffic.shift();
                     firstTraffic--
@@ -310,11 +322,12 @@ function animate(){
             }
         }
         carCtx.globalAlpha=0.2;
+        let clr = "#DC143C"
         for(let i=0;i<cars.length;i++){
-            cars[i].draw(carCtx,"blue");
+            cars[i].draw(carCtx,clr);
         }
         carCtx.globalAlpha=1;
-        bestCar.draw(carCtx,"blue",true);
+        bestCar.draw(carCtx,clr,true);
     
         // <Updates Start> //
         carCtx.save()
@@ -338,7 +351,7 @@ function animate(){
         for(let i=0; i<lights.length; i++) {
             lights[i].draw(carCtx)
         }
-        if(Math.abs(bestCar.y)>Math.abs(lastLight.y)-100) {
+        if(Math.abs(bestCar.y) > Math.abs(lastLight.y)-100) {
             rco_light = randomCoordinates(0, 1, mini_light, maxi_light)
             lights.push(new StreetLight(carCanvas.width*(rco_light.x), rco_light.y))
             mini_light = rco_light.y + MINI_LIGHT, maxi_light = rco_light.y + MAXI_LIGHT
@@ -347,6 +360,8 @@ function animate(){
                 lights.shift()
             }
         }
+
+
     
         // <Updates End> //
     

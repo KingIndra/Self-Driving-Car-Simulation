@@ -65,12 +65,12 @@ class Controls{
 
             let speed = Number(button.getAttribute('speed'))
             
-            if(speed < 3 || 5 < speed) {
+            if(speed < 3 || 8 < speed) {
                 speed = 3
                 this.c_for_speed = 1
             }
-            if(this.c_for_speed%3 === 0) {
-                speed -= 2
+            if(this.c_for_speed%6 === 0) {
+                speed -= 5
             } else {
                 speed += 1
             }
