@@ -5,6 +5,21 @@
     <script src="https://kit.fontawesome.com/cda2a0f3cd.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <dialog id="trainingInputDialog">
+        <!-- <form id="trainingInputForm"> -->
+            <span>
+                <input id="numberOfCarsInput" type="number" placeholder="Number of Cars (10 - 400) recommended">
+                <input id="speedInput" type="number" placeholder="Speed (3 - 10) recommended">
+                <!-- <input id="warn" style="border: 0px;" type="text" placeholder="read git repo before filling (optional)"> -->
+                <!-- <input id="lengthInput" type="number" placeholder="Ray Length ( - ) (optional)">
+                <input id="angleInput" type="number" placeholder="Ray Angle ( - ) (optional)">
+                <input id="networkInput" type="text" placeholder="Network Layers (optional)" value=""> -->
+                <button id="confirmBtn" value="default">Confirm</button>
+            </span>
+        <!-- </form> -->
+    </dialog>
+  
     <canvas id="carCanvas" style="position: absolute; z-index: -1;"></canvas>
     <div class="sidebarLeft">
         <span></span>
@@ -34,19 +49,22 @@
     </div>
     &ensp;&ensp;
     <div class="sidebarRight">
+        <button id="github"><i class="fa-brands fa-github"></i></button>
         <button class="disableOnTraining" id="changeMode" mode="KEYS" onclick="changeMode()"><i class="fa-solid fa-gamepad"></i></button>
         <button class="disableOnTraining" id="changeSpeed" speed=3><i class="fa-solid fa-gauge"></i></button>
         <button class="disableOnTraining" id="changeMode" mode="" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button>
         <button id="pause" onclick="pauseFunction()"><i animated=0 class="fa-solid fa-pause"></i></button>
         <button id="machineLearning"><i animated=0 class="fa-solid fa-brain"></i></button>
-        <span></span><span></span><span></span><span></span><span></span>
+        <button class="trainingData" id="saveLearning" onclick="save()"><i class="fa-solid fa-floppy-disk"></i></button>
+        <button class="trainingDataa" id="deleteLearning" onclick="discard()"><i class="fa-solid fa-trash"></i></button>
+        <!-- <span></span><span></span><span></span><span></span><span></span> -->
         <!-- <button id="moveRight" class="sideControlButtons"><i class="fa-solid fa-arrow-right"></i></i></button> -->
     </div>
+    <script src="utils.js"></script>
     <script src="streetlight.js"></script>
     <script src="visualizer.js"></script>
     <script src="network.js"></script>
     <script src="sensor.js"></script>
-    <script src="utils.js"></script>
     <script src="road.js"></script>
     <script src="controls.js"></script>
     <script src="car.js"></script>

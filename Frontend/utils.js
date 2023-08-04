@@ -69,3 +69,31 @@ function shuffleArray(array) {
         array[j] = temp;
     }
 }
+
+function toggleButtons(flag, className) {
+    const elements = document.getElementsByClassName(className)
+    for(let i=0; i<elements.length; i++) {
+        elements[i].disabled = !flag
+    }
+}
+
+function isDigit(char) {
+    let ascii = char.charCodeAt(0)
+    return (ascii < 48 || ascii > 57) ? false : true
+}
+
+function stringToArray(str) {
+    str = str + " "
+    let res = []
+    for(let i=0; i<str.length; i++) {   
+        let j = i
+        if(isDigit(str[i])) {
+            while(isDigit(str[i])) i++
+            res.push(Number(str.slice(j, i)))
+            i--
+        }
+    }
+    return res
+}
+
+KEYBOARD_EVENT_FLAG = true

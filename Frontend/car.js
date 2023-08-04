@@ -1,27 +1,28 @@
-class Car{
-    constructor(x,y,width,height,controlType,maxSpeed=3, acc=0.2){
-        this.x=x;
-        this.y=y;
-        this.width=width;
-        this.height=height;
+class Car
+{
+    constructor(x, y, width, height, controlType, maxSpeed=3, acc=0.2){
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
 
-        this.speed=0;
-        this.acceleration=acc;
-        this.maxSpeed=maxSpeed;
-        this.friction=0.05;
-        this.angle=0;
-        this.damaged=false;
+        this.speed = 0
+        this.acceleration = acc
+        this.maxSpeed = maxSpeed
+        this.friction = 0.05
+        this.angle = 0;
+        this.damaged = false;
         this.controlType = controlType
 
         this.useBrain = (this.controlType=="AI" || this.controlType=="BOT")
 
         if(controlType!="DUMMY"){
-            this.sensor=new Sensor(this);
-            this.brain=new NeuralNetwork(
+            this.sensor = new Sensor(this)
+            this.brain = new NeuralNetwork(
                 [this.sensor.rayCount,6,2]
             );
         }
-        this.controls=new Controls(controlType)
+        this.controls = new Controls(controlType)
     }
 
     repair() {
@@ -72,21 +73,22 @@ class Car{
         const points=[];
         const rad=Math.hypot(this.width,this.height)/2;
         const alpha=Math.atan2(this.width,this.height);
+        const pio = 1
         points.push({
-            x:this.x-Math.sin(this.angle-alpha)*rad,
-            y:this.y-Math.cos(this.angle-alpha)*rad
+            x:this.x-Math.sin(this.angle-alpha)*rad*1/pio,
+            y:this.y-Math.cos(this.angle-alpha)*rad*1/pio
         });
         points.push({
-            x:this.x-Math.sin(this.angle+alpha)*rad,
-            y:this.y-Math.cos(this.angle+alpha)*rad
+            x:this.x-Math.sin(this.angle+alpha)*rad*1/pio,
+            y:this.y-Math.cos(this.angle+alpha)*rad*1/pio
         });
         points.push({
-            x:this.x-Math.sin(Math.PI+this.angle-alpha)*rad,
-            y:this.y-Math.cos(Math.PI+this.angle-alpha)*rad
+            x:this.x-Math.sin(Math.PI+this.angle-alpha)*rad*1/pio,
+            y:this.y-Math.cos(Math.PI+this.angle-alpha)*rad*1/pio
         });
         points.push({
-            x:this.x-Math.sin(Math.PI+this.angle+alpha)*rad,
-            y:this.y-Math.cos(Math.PI+this.angle+alpha)*rad
+            x:this.x-Math.sin(Math.PI+this.angle+alpha)*rad*1/pio,
+            y:this.y-Math.cos(Math.PI+this.angle+alpha)*rad*1/pio
         });
         return points;
     }
@@ -146,7 +148,7 @@ class Car{
         }
         ctx.fill();
 
-        if(this.sensor && drawSensor){
+        if(this.sensor && drawSensor && this.controlType=="AI"){
             this.sensor.draw(ctx);
         }
     }

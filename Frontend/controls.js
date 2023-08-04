@@ -85,23 +85,25 @@ class Controls{
 
     #addKeyboardListeners(){
         document.onkeydown=(event)=>{
-            const button = document.getElementById("changeSpeed")
-            const speed = Number(event.key)
-            if(speed) {
-                button.innerHTML = '<i class="fa-solid fa-'+speed+' fa-fade"></i>'
-                button.setAttribute("speed", speed)
-                this.maxSpeed = speed
-            }
-            switch(event.key){
-                case "ArrowLeft":
-                    if(this.type === "KEYS") this.left=true;
-                    break;
-                case "ArrowRight":
-                    if(this.type === "KEYS") this.right=true;
-                    break;
-                case "0":
-                    this.forward = false;
-                    break;
+            if(KEYBOARD_EVENT_FLAG) {
+                const button = document.getElementById("changeSpeed")
+                let speed = Number(event.key)
+                if(speed) {
+                    button.innerHTML = '<i class="fa-solid fa-'+speed+' fa-fade"></i>'
+                    button.setAttribute("speed", speed)
+                    this.maxSpeed = speed
+                }
+                switch(event.key){
+                    case "ArrowLeft":
+                        if(this.type === "KEYS") this.left=true;
+                        break;
+                    case "ArrowRight":
+                        if(this.type === "KEYS") this.right=true;
+                        break;
+                    case "0":
+                        this.forward = false;
+                        break;
+                }
             }
         }
         document.onkeyup=(event)=>{

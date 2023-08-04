@@ -1,12 +1,13 @@
-class Sensor{
-    constructor(car){
-        this.car=car;
-        this.rayCount=9;
-        this.rayLength=300;
-        this.raySpread=Math.PI/3;
+class Sensor 
+{
+    constructor(car) {
+        this.car = car
+        this.rayCount = 9
+        this.rayLength = 300
+        this.raySpread = Math.PI/3
 
-        this.rays=[];
-        this.readings=[];
+        this.rays = []
+        this.readings = []
     }
 
     update(roadBorders,traffic){

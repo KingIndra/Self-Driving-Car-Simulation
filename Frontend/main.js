@@ -1,4 +1,16 @@
-// selecting html elements
+// global variables
+let numberOfCarsInput = 100, speedInput = 5, networkArrayInput = [9,6]
+// Dialog box
+const trainingInputDialog = document.getElementById("trainingInputDialog")
+const confirmBtn = trainingInputDialog.querySelector("#confirmBtn")
+
+confirmBtn.addEventListener('click', () => {
+    numberOfCarsInput = Number(trainingInputDialog.querySelector("#numberOfCarsInput").value)
+    speedInput = Number(trainingInputDialog.querySelector("#speedInput").value)
+    trainingInputDialog.close()
+    pauseFunction()
+})
+
 const pauseButton = document.getElementById("pause")
 
 const info = document.getElementById("dis")
@@ -26,24 +38,15 @@ function playingInfo() {
     score = document.getElementById("score")
     highScore = document.getElementById("highScore")
 }
-playingInfo()
+
+// Flags and setups
 trainingInfo()
+playingInfo()
 
-// let c_for_ai_info = 0, c_for_brain_animation = 0
-// Flags
 let playingFlag = true
-
 let pause = false
 
-// utils
-function disablingCasualButtons(flag) {
-    const elements = document.getElementsByClassName("disableOnTraining")
-    for(let i=0; i<elements.length; i++) {
-        elements[i].disabled = flag
-    }
-}
-// 
-
+toggleButtons(false, "trainingData")
 
 const carCanvas=document.getElementById("carCanvas");
 carCanvas.width=200;
@@ -78,11 +81,11 @@ generateTraffic()
 // STREET LIGHTS
 function generateLights() {
     rco_light = randomCoordinates(0, 1, mini_light, maxi_light)
-    lights.push(new StreetLight(200*(rco_light.x), -50))
+    lights.push(new StreetLight(carCanvas.width*(rco_light.x), -50))
     mini_light = rco_light.y + MINI_LIGHT, maxi_light = rco_light.y + MAXI_LIGHT
     for(let i=0; i<1; i++) {
         rco_light = randomCoordinates(0, 1, mini_light, maxi_light)
-        lights.push(new StreetLight(200*(rco_light.x), rco_light.y))
+        lights.push(new StreetLight(carCanvas.width*(rco_light.x), rco_light.y))
         mini_light = rco_light.y + MINI_LIGHT, maxi_light = rco_light.y + MAXI_LIGHT
     }
     return {x:rco_light.x, y:rco_light.y}
@@ -90,15 +93,13 @@ function generateLights() {
 let lights = []
 let MINI_LIGHT = -800, MAXI_LIGHT = -900, mini_light = MINI, maxi_light = MAXI
 let lastLight = generateLights()
-// 
 
 function usingTrainedBrain() {
     if(localStorage.getItem("bestBrain")) {
-        for(let i=0; i<cars.length; i++) {
-            cars[i].brain=JSON.parse(
-                localStorage.getItem("bestBrain"))
-            if(i!=0) {
-                NeuralNetwork.mutate(cars[i].brain,0.15)
+        for(let i = 0; i < cars.length; i++) {
+            cars[i].brain = JSON.parse(localStorage.getItem("bestBrain"))
+            if(i != 0) {
+                NeuralNetwork.mutate(cars[i].brain, 0.15)
             }
         }
     }
@@ -109,10 +110,10 @@ let bestCar = cars[0]
 usingTrainedBrain()
 
 // GENERATING CARS
-function generateCars(N,mode,speed=3){
+function generateCars(N, mode, speed=3){
     const cars=[];
     for(let i=1;i<=N;i++){
-        cars.push(new Car(road.getLaneCenter(1),100,30,50,mode,speed,0.2));
+        cars.push(new Car(road.getLaneCenter(1), 100, 30, 50, mode, speed, 0.2));
     }
     return cars;
 }
@@ -138,6 +139,8 @@ function reload() {
     lastLight = generateLights();
 
     highScr = getScr()
+
+    usingTrainedBrain()
 }
 
 function pauseFunction() {
@@ -150,14 +153,12 @@ function pauseFunction() {
 }
 
 function changeMode(mode) {
-    // console.log(mode)
     reload()
 }
 
 let storeBestCar = null;
-document.getElementById("machineLearning").addEventListener('click', async (e) => 
-{
-    let button = e.target
+confirmBtn.addEventListener('click', async () => {
+    let button = document.getElementById("machineLearning")
     if(button.tagName !== "BUTTON") button = button.parentElement
 
     let brainEmoji = button.children[0]
@@ -168,40 +169,62 @@ document.getElementById("machineLearning").addEventListener('click', async (e) =
     }
     reload()
 
+    brainEmoji.classList.add("fa-fade")
+    brainEmoji.setAttribute("animated", 1)
+    storeBestCar = bestCar
+    // 
+    playingSection.remove()
+    bottom_info.appendChild(trainingSection)
+    playingFlag = false
+    // 
+    trainingInfo()
+    toggleButtons(false, "disableOnTraining")
+    toggleButtons(true, "trainingData")
+    
+    // get data from dialog
+    trainingInputDialog.close()
+    numberOfCarsInput = Number(trainingInputDialog.querySelector("#numberOfCarsInput").value)
+    speedInput = Number(trainingInputDialog.querySelector("#speedInput").value)
+
+    cars = generateCars(numberOfCarsInput, "AI", speedInput)
+    usingTrainedBrain()
+    bestCar = cars[0]
+})
+document.getElementById("machineLearning").addEventListener('click', (e) => {
+    let button = document.getElementById("machineLearning")
+    if(button.tagName !== "BUTTON") button = button.parentElement
+
+    let brainEmoji = button.children[0]
+    const brainAnimated = Number(brainEmoji.getAttribute("animated"))
+
+    if(brainAnimated) {
+
+    }
+    reload()
+
     if(brainAnimated) {
         brainEmoji.classList.remove("fa-fade")
         brainEmoji.setAttribute("animated", 0)
         // end training
         cars = []
         storeBestCar.repair()
+        bestCar = storeBestCar
         cars.push(storeBestCar)
-        console.log("training end")
-        // 
+        usingTrainedBrain()
+        KEYBOARD_EVENT_FLAG = true
+        
         trainingSection.remove()
         bottom_info.appendChild(playingSection)
         playingFlag = true
+        
         playingInfo()
-        disablingCasualButtons(false)
+        toggleButtons(true, "disableOnTraining")
+        toggleButtons(false, "trainingData")
     } 
     else {
-        brainEmoji.classList.add("fa-fade")
-        brainEmoji.setAttribute("animated", 1)
-        storeBestCar = bestCar
-        playingSection.remove()
-        bottom_info.appendChild(trainingSection)
-        playingFlag = false
-        trainingInfo()
-        disablingCasualButtons(true)
-        // start training
-        console.log("training starts")
-        let input_number_of_cars, input_speed, input_array
+        KEYBOARD_EVENT_FLAG = false
+        trainingInputDialog.showModal()
         pauseFunction()
-        
-        pauseFunction()
-        cars = generateCars(200, "AI", 4)        
-        bestCar = cars[0]
-        usingTrainedBrain()
-        //
     }
 })
 
@@ -210,9 +233,13 @@ document.getElementById("machineLearning").addEventListener('click', async (e) =
 function save(){
     localStorage.setItem("bestBrain",
         JSON.stringify(bestCar.brain))
+    alert("best car network parameters saved")
+    usingTrainedBrain()
 }
 function discard(){
     localStorage.removeItem("bestBrain")
+    alert("best car network parameters deleted")
+    usingTrainedBrain()
 }
 // 
 
@@ -287,7 +314,7 @@ function animate(){
             cars[i].draw(carCtx,"blue");
         }
         carCtx.globalAlpha=1;
-        bestCar.draw(carCtx,"blue");
+        bestCar.draw(carCtx,"blue",true);
     
         // <Updates Start> //
         carCtx.save()
@@ -313,7 +340,7 @@ function animate(){
         }
         if(Math.abs(bestCar.y)>Math.abs(lastLight.y)-100) {
             rco_light = randomCoordinates(0, 1, mini_light, maxi_light)
-            lights.push(new StreetLight(200*(rco_light.x), rco_light.y))
+            lights.push(new StreetLight(carCanvas.width*(rco_light.x), rco_light.y))
             mini_light = rco_light.y + MINI_LIGHT, maxi_light = rco_light.y + MAXI_LIGHT
             lastLight = {x:rco_light.x, y:rco_light.y}
             if(lights.length>3) {

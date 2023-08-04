@@ -8,10 +8,50 @@ body{
     align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+#github {
+    font-size: 1.6rem;
+    background-color: black;
+    color: white;
+}
+#github :hover {
+    color: blue;
+    /* transform: scale(1.3); */
+}
+#trainingInputDialog {
+    border-radius: 5px;
+    border: 0px solid;   
+}
+#trainingInputDialog span {
+    display: flex;
+    flex-direction: column;
+    height: 110px;
+    width: 250x;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+#trainingInputDialog input {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 5px;
+    width: 235px;
+}
+#warn {
+    font-weight: bolder;
+}
 .sidebarRight button {
     height: 30px;
     width: 35px;
     font-size: 1.2rem;
+}
+.sidebarLeft button {
+    height: 30px;
+    width: 35px;
+    font-size: 1.2rem;
+}
+#github {
+    position: relative;
+    justify-self: stretch;
 }
 #machineLearning2 {
     visibility: hidden;
@@ -33,6 +73,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     height: 100vh;
 }
 #bottom-info {
@@ -53,7 +94,7 @@ body{
     display: flex; 
     flex-direction: column; 
     justify-content: space-between; 
-    width: 182px;
+    width: 180px;
     height: 100vh;
 }
 button{
