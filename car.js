@@ -1,6 +1,6 @@
 class Car
 {
-    constructor(x, y, width, height, controlType, maxSpeed=3, acc=0.2){
+    constructor(x, y, width, height, controlType, maxSpeed=3, acc=0.2) {
         this.x = x
         this.y = y
         this.width = width
@@ -10,8 +10,8 @@ class Car
         this.acceleration = acc
         this.maxSpeed = maxSpeed
         this.friction = 0.05
-        this.angle = 0;
-        this.damaged = false;
+        this.angle = 0
+        this.damaged = false
         this.controlType = controlType
 
         this.useBrain = (this.controlType=="AI" || this.controlType=="BOT")
@@ -19,8 +19,8 @@ class Car
         if(controlType!="DUMMY"){
             this.sensor = new Sensor(this)
             this.brain = new NeuralNetwork(
-                [this.sensor.rayCount,6,2]
-            );
+                [this.sensor.rayCount, 6, 2]
+            )
         }
         this.controls = new Controls(controlType)
     }
@@ -34,23 +34,22 @@ class Car
         this.controls.right = false
     }
 
-    update(roadBorders, traffic, mode=null){
-        if(this.mode!=null) this.mode = mode
-        if(!this.damaged){
-            this.#move();
-            this.polygon=this.#createPolygon();
-            this.damaged=this.#assessDamage(roadBorders,traffic);
+    update(roadBorders, traffic, mode = null) {
+        if(this.mode != null) this.mode = mode
+        if(!this.damaged) {
+            this.#move()
+            this.polygon = this.#createPolygon()
+            this.damaged = this.#assessDamage(roadBorders, traffic)
         }
-        if(this.sensor){
-            this.sensor.update(roadBorders,traffic);
-            const offsets=this.sensor.readings.map(
-                s=>s==null?0:1-s.offset
-            );
-            const outputs=NeuralNetwork.feedForward(offsets,this.brain);
-
-            if(this.controlType==="AI" || this.controlType==="BOT"){
-                this.controls.right=outputs[0];
-                this.controls.left=outputs[1];
+        if(this.sensor) {
+            this.sensor.update(roadBorders, traffic)
+            const offsets = this.sensor.readings.map(
+                s => s == null ? 0 : 1 - s.offset
+            )
+            const outputs = NeuralNetwork.feedForward(offsets, this.brain)
+            if(this.controlType === "AI" || this.controlType === "BOT") {
+                this.controls.right = outputs[0]
+                this.controls.left = outputs[1]
             }
         }
     }

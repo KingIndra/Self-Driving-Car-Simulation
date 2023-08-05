@@ -29,7 +29,7 @@ let scoreTraining = null
 let carsCount = null
 
 function trainingInfo() {
-    generation = document.getElementById("generation")
+    // generation = document.getElementById("generation")
     scoreTraining = document.getElementById("scoreTraining")
     carsCount = document.getElementById("carsCount")
 }
@@ -48,12 +48,12 @@ let pause = false
 
 toggleButtons(false, "trainingData")
 
-const carCanvas=document.getElementById("carCanvas");
-carCanvas.width=200;
+const carCanvas=document.getElementById("carCanvas")
+carCanvas.width = 200
 
-const carCtx = carCanvas.getContext("2d");
+const carCtx = carCanvas.getContext("2d")
 
-const road = new Road(carCanvas.width/2,carCanvas.width*0.9);
+const road = new Road(carCanvas.width/2,carCanvas.width*0.9)
 
 // TRAFFIC
 function generateTraffic() {
@@ -63,16 +63,16 @@ function generateTraffic() {
         traffic.push(new Car(road.getLaneCenter(traverse_arr[i]),rco_traffic.y,30,50,"DUMMY",2))
         mini_traffic = rco_traffic.y + MINI_TRAFFIC, maxi_traffic = rco_traffic.y + MAXI_TRAFFIC
         if(i==0) {
-            firstTraffic = traffic.length-1
+            firstTraffic = traffic.length - 1
         }
         if(i==2) {
-            lastTraffic = traffic.length-1
+            lastTraffic = traffic.length - 1
         }
     }
 }
 let traffic=[];
 let firstTraffic = null, lastTraffic=null;
-let MINI_TRAFFIC = -180, MAXI_TRAFFIC = -220, mini_traffic = MINI_TRAFFIC, maxi_traffic = MAXI_TRAFFIC;
+let MINI_TRAFFIC = -180, MAXI_TRAFFIC = -200, mini_traffic = MINI_TRAFFIC, maxi_traffic = MAXI_TRAFFIC;
 let traverse_arr = [0,1,2];
 generateTraffic()
 // mini_traffic = traffic[lastTraffic].y
@@ -91,7 +91,7 @@ function generateLights() {
     return {x:rco_light.x, y:rco_light.y}
 }
 let lights = []
-let MINI_LIGHT = -800, MAXI_LIGHT = -900, mini_light = MINI, maxi_light = MAXI
+let MINI_LIGHT = -650, MAXI_LIGHT = -700, mini_light = MINI, maxi_light = MAXI
 let lastLight = generateLights()
 
 function usingTrainedBrain() {
@@ -99,7 +99,7 @@ function usingTrainedBrain() {
         for(let i = 0; i < cars.length; i++) {
             cars[i].brain = JSON.parse(localStorage.getItem("bestBrain"))
             if(i != 0) {
-                NeuralNetwork.mutate(cars[i].brain, 0.15)
+                NeuralNetwork.mutate(cars[i].brain, 0.25)
             }
         }
     }
@@ -279,15 +279,15 @@ function animate(){
             lights[i].update(traffic)
         }
         traffic.pop()
-        bestCar=cars.find(
-            c=>c.y==Math.min(
-                ...cars.map(c=>c.y)
-            ));
+
+        bestCar = cars.find(
+            c => c.y == Math.min(...cars.map(c => c.y))
+        );
     
-        carCanvas.height=window.innerHeight;
+        carCanvas.height = window.innerHeight
     
-        carCtx.save();
-        carCtx.translate(0,-bestCar.y+carCanvas.height*0.7);
+        carCtx.save()
+        carCtx.translate(0, -bestCar.y+carCanvas.height*0.7)
     
         road.draw(carCtx);
         for(let i=0;i<traffic.length;i++){
@@ -302,18 +302,24 @@ function animate(){
                 c_for_second_car++
                 rco_traffic = randomCoordinates(0, 2, mini_traffic, maxi_traffic)
                 traffic.push(new Car(road.getLaneCenter(traverse_arr[i]),rco_traffic.y,30,50,"DUMMY",2))
-                if(c_for_second_car%5 == 0) {
-                    if(traverse_arr[i] == 0 || traverse_arr[i] == 2) {
-                        let oby = rco_traffic.y
-                        oby = getRandomIntInclusive(oby - 5, oby + 5)
-                        traffic.push(new Car(road.getLaneCenter(1), oby, 30, 50, "DUMMY", 2))
-                    }
-                }
+
+                // if(c_for_second_car%5 == 0) {
+                //     let oby = rco_traffic.y
+                //     oby = getRandomIntInclusive(oby - 5, oby + 5)
+                    
+                //     if(traverse_arr[i] == 0 || traverse_arr[i] == 2) {
+                //         traffic.push(new Car(road.getLaneCenter(1), oby, 30, 50, "DUMMY", 2))
+                //     } else {
+                //         const rlc_zero_one = Math.floor(getRandomIntInclusive(0, 1))
+                //         traffic.push(new Car(rlc_zero_one * 2, oby, 30, 50, "DUMMY", 2))
+                //     }
+                // }
+
                 mini_traffic = rco_traffic.y + MINI_TRAFFIC, maxi_traffic = rco_traffic.y + MAXI_TRAFFIC
                 if(i==0) firstTraffic = traffic.length-1
                 if(i==2) lastTraffic = traffic.length-1
             }
-            if(traffic.length > 7) {
+            if(traffic.length > 8) {
                 for(let i=0; i<3; i++) {
                     traffic.shift();
                     firstTraffic--
@@ -344,7 +350,11 @@ function animate(){
             const scr = (Math.floor(bestCar.y)-100)*-1
             scoreTraining.innerHTML = scr
             carsCount.innerHTML = number_of_cars
-            generation.innerHTML = scr%2
+            if(scr > highScr) {
+                highScore.innerHTML = scr
+                saveScr(scr)
+            }
+            // generation.innerHTML = scr%2
         }
     
         // Draw Light    

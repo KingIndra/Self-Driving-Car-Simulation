@@ -65,12 +65,12 @@ class Controls{
 
             let speed = Number(button.getAttribute('speed'))
             
-            if(speed < 3 || 8 < speed) {
-                speed = 3
+            if(speed < 1 || 8 < speed) {
+                speed = 2
                 this.c_for_speed = 1
             }
-            if(this.c_for_speed%6 === 0) {
-                speed -= 5
+            if(this.c_for_speed%8 === 0) {
+                speed -= 7
             } else {
                 speed += 1
             }
@@ -88,8 +88,17 @@ class Controls{
             if(KEYBOARD_EVENT_FLAG) {
                 const button = document.getElementById("changeSpeed")
                 let speed = Number(event.key)
+                if (event.key == "m" || event.key == "M") {
+                    speed = 15
+                }
                 if(speed) {
                     button.innerHTML = '<i class="fa-solid fa-'+speed+' fa-fade"></i>'
+                    button.setAttribute("speed", speed)
+                    this.maxSpeed = speed
+                }
+                if (event.key == "m" || event.key == "M") {
+                    speed = 15
+                    button.innerHTML = 'M'
                     button.setAttribute("speed", speed)
                     this.maxSpeed = speed
                 }
