@@ -240,6 +240,7 @@ function discard(){
     localStorage.removeItem("bestBrain")
     alert("best car network parameters deleted")
     usingTrainedBrain()
+    location.reload()
 }
 // 
 
