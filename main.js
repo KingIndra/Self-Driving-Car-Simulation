@@ -154,6 +154,7 @@ function pauseFunction() {
 
 function changeMode(mode) {
     reload()
+    usingTrainedBrain()
 }
 
 let storeBestCar = null;
