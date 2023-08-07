@@ -232,10 +232,9 @@ document.getElementById("machineLearning").addEventListener('click', (e) => {
 
 // Function For Saving and Deleting Brain Data
 function save(){
-    localStorage.setItem("bestBrain",
-        JSON.stringify(bestCar.brain))
+    localStorage.setItem("bestBrain",JSON.stringify(bestCar.brain))
     alert("best car network parameters saved")
-    usingTrainedBrain()
+    // usingTrainedBrain()
 }
 function discard(){
     localStorage.removeItem("bestBrain")
