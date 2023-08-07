@@ -8,10 +8,6 @@ https://kingindra.github.io/Self-Driving-Car-Simulation/
 
 <hr>
 
-https://github.com/KingIndra/Self-Driving-Car-Simulation/assets/81245566/65c205d5-3813-4881-b727-45c607141bed
-
-<hr>
-
 - This simulation is built with using HTML Canvas Element
 
 - Car drives in a straight road and avoid collisions with traffic and road borders.
