@@ -1,8 +1,8 @@
 # Self Driving Car Simulation with Javascript
 
-```
+
 https://kingindra.github.io/Self-Driving-Car-Simulation/
-```
+
 - This simulation is built with using HTML Canvas Element
 
 - Car drives in a straight road and avoid collisions with traffic and road borders.
