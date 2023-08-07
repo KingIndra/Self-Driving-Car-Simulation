@@ -2,7 +2,15 @@
 
 https://kingindra.github.io/Self-Driving-Car-Simulation/
 
+<hr>
+
 <img width="146" alt="image" src="https://github.com/KingIndra/Self-Driving-Car-Simulation/assets/81245566/1f46b508-1e36-45bf-a57d-4a3aeaf21a4f">
+
+<hr>
+
+https://github.com/KingIndra/Self-Driving-Car-Simulation/assets/81245566/65c205d5-3813-4881-b727-45c607141bed
+
+<hr>
 
 - This simulation is built with using HTML Canvas Element
 
@@ -12,4 +20,8 @@ https://kingindra.github.io/Self-Driving-Car-Simulation/
 - Implemented friction and acceleration to make car movements look real.
 - Implemented device orientation and key controls for car
 
+<hr>
+
 ![image](https://github.com/KingIndra/Self-Driving-Car-Simulation/assets/81245566/ea4768ad-4b21-466b-a3f5-1f27aef3d354)
+
+<hr>
